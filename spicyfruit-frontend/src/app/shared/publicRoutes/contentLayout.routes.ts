@@ -9,4 +9,8 @@ export const PUBLIC_ROUTES: Routes = [{
   path: 'auth',
   loadChildren: './pages/auth/auth.module#AuthModule',
   data: {preload: true, delay: true}
+}, {
+  path: 'terms',
+  loadChildren: './pages/public-terms/public-terms.module#PublicTermsModule',
+  data: {preload: false, delay: false}
 }];

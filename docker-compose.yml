@@ -10,6 +10,7 @@ services:
       MYSQL_USER: 'spicyfruit'
       MYSQL_PASSWORD: 'eRSw9612'
       MYSQL_ROOT_PASSWORD: 'qwmn90_+'
+      TZ: 'Etc/GMT'
     ports:
       - '3306:3306'
     expose:
@@ -27,8 +28,8 @@ services:
     restart: always
     build: ./spicyfruit-backend
     ports:
-      - '80:80'
+      - '8080:8080'
 networks:
   default:
-    name: spicyfruit_network
+    name: obs_network
     driver: bridge

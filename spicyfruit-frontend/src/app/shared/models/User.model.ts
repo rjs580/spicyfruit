@@ -13,8 +13,12 @@ export class User {
 
   static deserialize(json: any): User {
     let msg = Object.create(User.prototype);
+
     return Object.assign(msg, json, {
-      lastLogin: new Date(json.lastLogin)
+      lastLogin: new Date(json.lastLogin + " GMT"),
+      // to test
+      isDeveloper: true,
+      isModerator: true
     });
   }
 }

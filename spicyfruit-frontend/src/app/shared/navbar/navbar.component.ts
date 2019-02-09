@@ -1,4 +1,4 @@
-import {Component, AfterViewChecked, AfterContentInit} from '@angular/core';
+import {Component, AfterViewChecked, AfterContentChecked} from '@angular/core';
 import {OAuthService} from '../auth/o-auth.service';
 import {User} from '../models/User.model';
 import {Title} from '@angular/platform-browser';
@@ -10,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements AfterViewChecked, AfterContentInit {
+export class NavbarComponent implements AfterViewChecked, AfterContentChecked {
   documentTitle: string;
   profilePic: string = null;
   user: User = null;
@@ -22,7 +22,7 @@ export class NavbarComponent implements AfterViewChecked, AfterContentInit {
     this.profilePic = this.user.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : this.user.profilePic;
   }
 
-  ngAfterContentInit() {
+  ngAfterContentChecked() {
     this.documentTitle = this.titleService.getTitle();
     this.user = OAuthService.getUser();
     this.profilePic = this.user.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : this.user.profilePic;

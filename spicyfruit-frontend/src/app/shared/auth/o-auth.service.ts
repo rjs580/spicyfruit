@@ -54,9 +54,9 @@ export class OAuthService {
     });
 
     // send message to server every interval
-    keepalive.interval(this.idleTime + this.timeOutTime);
+    keepalive.interval(this.idleTime);
     keepalive.onPing.subscribe(() => {
-      this.http.get('http://localhost:4201/auth/keepAliveUser.php', {withCredentials: true}).subscribe(() => {
+      this.http.get('http://localhost:8080/auth/keepAliveUser.php', {withCredentials: true}).subscribe(() => {
       }, err => {
         if (err) {
           console.error(err.toString());
@@ -83,7 +83,7 @@ export class OAuthService {
   signInUser(user: AuthUser): void {
     SweetAlert.loadingAlert();
     let userObject = user.toJSON();
-    this.http.post('http://localhost:4201/auth/signIn.php', userObject, {withCredentials: true}).subscribe(msg => {
+    this.http.post('http://localhost:8080/auth/signIn.php', userObject, {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -105,7 +105,7 @@ export class OAuthService {
   signUpUser(user: AuthUser): void {
     SweetAlert.loadingAlert();
     let userObject = user.toJSON();
-    this.http.post('http://localhost:4201/auth/signUp.php', userObject, {withCredentials: true}).subscribe(msg => {
+    this.http.post('http://localhost:8080/auth/signUp.php', userObject, {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -127,7 +127,7 @@ export class OAuthService {
 
   signOut(timedOut?: boolean): void {
     SweetAlert.loadingAlert();
-    this.http.get('http://localhost:4201/auth/signOut.php', {withCredentials: true}).subscribe(msg => {
+    this.http.get('http://localhost:8080/auth/signOut.php', {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -154,7 +154,7 @@ export class OAuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.http.get('http://localhost:4201/auth/getSessionUser.php', {withCredentials: true}).pipe(
+    return this.http.get('http://localhost:8080/auth/getSessionUser.php', {withCredentials: true}).pipe(
       map(msg => {
         let serverMsg = Msg.deserialize(msg);
         if (serverMsg.status == MSGType.Success) {

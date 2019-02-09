@@ -1,4 +1,6 @@
 <?php
+  const API_URL = "http://spicyfruit_api:3000/";
+
   function errorLog($object = null) {
     ob_start();
     var_dump($object);

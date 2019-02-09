@@ -1,0 +1,20 @@
+$logoSize: 54px;
+
+.logo-background {
+  border-radius: 50%;
+  height: $logoSize;
+  width: $logoSize;
+  margin: 0 auto;
+  background: url("assets/img/logos/background_150.svg") no-repeat center center;
+  background-size: cover;
+  box-shadow: 0 1px 26px dimgrey;
+  overflow: hidden;
+}
+
+.logo-background img {
+  border-radius:48%;
+  width: ($logoSize + 2px);
+  height: ($logoSize + 2px);
+  margin-top: -1px;
+  margin-left: -1px;
+}

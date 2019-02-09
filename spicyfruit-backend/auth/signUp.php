@@ -18,7 +18,7 @@
       if($userType === Regular && verifyPassword($password) === false) {
         sendErrorMSG("Password must be 8 characters or longer containing at least one number and one letter");
       } else {
-        $json = @file_get_contents("http://localhost:30000/private/signUp?type=" . $userType . "&email=" . $email .
+        $json = @file_get_contents(API_URL . "private/signUp?type=" . $userType . "&email=" . $email .
           "&name=" . $nickName . "&password=" . $password . "&tokenId=" . $tokenId . "&id=" . $id);
 
         if($json === false) {

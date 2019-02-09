@@ -1,30 +1,54 @@
-import { RouteInfo } from './sidebar.metadata';
+import {RouteInfo, RouteType} from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-
-    {
-        path: '/full-layout', title: 'Full Layout', icon: 'ft-layout', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-    },
-    {
-        path: '/content-layout', title: 'Content Layout', icon: 'ft-square', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-    },
-    {
-        path: '', title: 'Menu Levels', icon: 'ft-align-left', class: 'has-sub', badge: '1', badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1', isExternalLink: false,
-        submenu: [
-            { path: 'javascript:;', title: 'Second Level', icon: '', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
-            {
-                path: '', title: 'Second Level Child', icon: '', class: 'has-sub', badge: '', badgeClass: '', isExternalLink: false,
-                submenu: [
-                    { path: 'javascript:;', title: 'Third Level 1.1', icon: '', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
-                    { path: 'javascript:;', title: 'Third Level 1.2', icon: '', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
-                ]
-            },
-        ]
-    },
-    {
-        path: '/changelog', title: 'ChangeLog', icon: 'ft-file', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-    },
-    { path: 'https://pixinvent.com/apex-angular-4-bootstrap-admin-template/documentation', title: 'Documentation', icon: 'ft-folder', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
-    { path: 'https://pixinvent.ticksy.com/', title: 'Support', icon: 'ft-life-buoy', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
-
+  {
+    path: '/pHome',
+    title: 'Home',
+    icon: 'ft-home',
+    class: '',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    routeType: RouteType.All,
+    submenu: []
+  },
+  {
+    path: '',
+    title: 'Developer',
+    icon: 'fa fa-terminal',
+    class: 'has-sub',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    routeType: RouteType.Developer,
+    submenu: [
+      {path: 'javascript:;', title: 'Packages', icon: 'ft-package', class: '', badge: '', badgeClass: '', isExternalLink: false, routeType: RouteType.Developer, submenu: []},
+      {path: 'javascript:;', title: 'Upload Package', icon: 'ft-upload', class: '', badge: '', badgeClass: '', isExternalLink: false, routeType: RouteType.Developer, submenu: []},
+      {path: 'javascript:;', title: 'Pending Review', icon: 'ft-clock', class: '', badge: '', badgeClass: '', isExternalLink: false, routeType: RouteType.Developer, submenu: []}
+    ]
+  },
+  {
+    path: '',
+    title: 'Moderator',
+    icon: 'fa fa-coffee',
+    class: 'has-sub',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    routeType: RouteType.Moderator,
+    submenu: [
+      {path: 'javascript:;', title: 'Review Packages', icon: 'ft-pocket', class: '', badge: '', badgeClass: '', isExternalLink: false, routeType: RouteType.Moderator, submenu: []},
+    ]
+  },
+  {
+    path: '/pTerms',
+    title: 'Terms & Conditions',
+    icon: 'ft-file-text',
+    class: '',
+    badge: '',
+    badgeClass: '',
+    isExternalLink: false,
+    routeType: RouteType.All,
+    submenu: []
+  }
 ];

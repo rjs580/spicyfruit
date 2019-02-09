@@ -1,25 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTES } from './sidebar-routes.config';
-import { RouteInfo } from "./sidebar.metadata";
-import { Router, ActivatedRoute } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ROUTES} from './sidebar-routes.config';
+import {RouteType} from './sidebar.metadata';
+import {OAuthService} from '../auth/o-auth.service';
 
 declare var $: any;
+
 @Component({
-    // moduleId: module.id,
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
 
 export class SidebarComponent implements OnInit {
-    public menuItems: any[];
+  public menuItems: any[];
 
-    constructor(private router: Router,
-        private route: ActivatedRoute) {
+  constructor() {
+  }
+
+  ngOnInit() {
+    $.getScript('./assets/js/app-sidebar.js');
+    this.menuItems = ROUTES.filter(menuItem => {
+      return SidebarComponent.routeFilter(menuItem);
+    });
+  }
+
+  static routeFilter(route) {
+    if(route.routeType === RouteType.Developer) {
+      return OAuthService.getUser().isDeveloper;
     }
 
-    ngOnInit() {
-        $.getScript('./assets/js/app-sidebar.js');
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+    if(route.routeType === RouteType.Moderator) {
+      return OAuthService.getUser().isModerator;
     }
 
+    return true;
+  }
 }
