@@ -1,0 +1,48 @@
+{
+  "main": {
+    "title": "Spicy Fruit"
+  },
+  "publicHomepage": {
+    "description": "Repository for quality packages",
+    "featuredPackages" : {
+      "title": "Featured Packages",
+      "description": "Most popular packages from the repository"
+    },
+    "recentPackages" : {
+      "title": "Recent Packages",
+      "description": "Packages recently added to the repository"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign In",
+      "emailPlaceholder": "Email Address",
+      "passwordPlaceholder": "Password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Submit",
+      "orSeparator": "Or",
+      "signInGoogle": "Sign In with Google",
+      "emailError": "Valid Email is required",
+      "passwordError": "Password must be 8 characters or longer containing at least one number and one letter"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "signUpGoogle": "Sign Up with Google",
+      "nickNamePlaceholder": "Nick Name",
+      "nickNameError": "Nick name must be 3 characters or longer",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "confirmPasswordError": "Passwords do not match"
+    }
+  },
+  "navbar" : {
+    "editProfile": "Edit Profile",
+    "signOut": "Sign Out"
+  },
+  "privateHomepage": {
+    "welcome": "Welcome back, {{value}}",
+    "lastSignIn": "Last Sign-In:"
+  }
+}

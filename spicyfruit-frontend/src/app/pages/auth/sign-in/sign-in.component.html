@@ -1,0 +1,37 @@
+<section class="d-flex justify-content-center align-items-center full-height-vh">
+  <div class="card triangle-background text-center round" style="box-shadow: 0 5px 40px grey;">
+    <div class="card-img overlap">
+      <img alt="" class="mb-1" src="assets/img/portrait/avatars/avatar-08.png" width="190">
+    </div>
+    <div class="card-body">
+      <h2 class="white">{{'auth.signIn.title' | translate}}</h2>
+      <form class="px-4 pt-2" #signInForm="ngForm" (ngSubmit)="onSubmit()"  novalidate>
+        <div class="form-body">
+          <div class="form-group">
+            <input type="email" class="form-control form-control-brickRed brickRed round" [(ngModel)]="signInModel.userEmail" #inputEmail="ngModel" name="inputEmail" id="inputEmail" placeholder="{{'auth.signIn.emailPlaceholder' | translate}}" required email>
+            <div [hidden]="inputEmail.valid || inputEmail.pristine">
+              <p class="flamingo text-uppercase font-small-1 text-center mt-1" style="line-height: 14px;">{{'auth.signIn.emailError' | translate}}</p>
+            </div>
+            <input type="password" class="form-control form-control-brickRed brickRed round mt-2" [(ngModel)]="signInModel.userPassword" minlength="8" [pattern]="passwordPattern" #inputPassword="ngModel" name="inputPassword" id="inputPassword" placeholder="{{'auth.signIn.passwordPlaceholder' | translate}}" required>
+            <div [hidden]="inputPassword.valid || inputPassword.pristine" *ngIf="inputPassword.errors?.pattern">
+              <p class="flamingo text-uppercase font-small-1 text-center mt-1" style="line-height: 14px;">{{'auth.signIn.passwordError' | translate}}</p>
+            </div>
+
+            <div class="d-flex justify-content-end"><a class="white text-uppercase font-small-2" [routerLink]="['/auth/forgot-password']">{{'auth.signIn.forgotPassword' | translate}}</a></div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-raised btn-round btn-brickRed shadow-z-2 btn-block" [disabled]="!signInForm.form.valid">{{'auth.signIn.submit' | translate}}</button>
+          </div>
+        </div>
+        <div class="hr-sect text-uppercase"><span>{{'auth.signIn.orSeparator' | translate}}</span></div>
+        <a id="google-btn" (click)="signInWithGoogle()" class="btn btn-raised btn-round btn-brickRed shadow-z-2 btn-block">
+          <span class="fa fa-google mr-1"></span> {{'auth.signIn.signInGoogle' | translate}}
+        </a>
+        <hr>
+        <div class="d-flex justify-content-end">
+          <a class="white text-uppercase mt-2 mb-2" [routerLink]="['/auth/sign-up']"><i class="ft-user-plus mr-1"></i>{{'auth.signUp.title' | translate}}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

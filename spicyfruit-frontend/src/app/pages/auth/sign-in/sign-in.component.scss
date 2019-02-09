@@ -1,0 +1,41 @@
+.triangle-background {
+  background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("assets/img/logos/background_400x600.svg") no-repeat center center;
+  width: 400px;
+  background-size: cover;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid rgba(#EE4540, 0.35);
+  margin: 1em -12px 0px -12px;
+  padding: 0;
+}
+
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(#fff, 0.8);
+  margin: 8px -20px 20px -20px;
+}
+
+.hr-sect span {
+  padding: 10px;
+  margin-left: -8px;
+  margin-right: -8px;
+  background-color: rgba(#EE4540, 0.35);
+  border-radius: 50%;
+}
+
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(#EE4540, 0.35);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 8px;
+}

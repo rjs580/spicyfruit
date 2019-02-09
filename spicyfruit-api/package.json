@@ -1,0 +1,29 @@
+{
+  "name": "spicyfruitapi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API for SpicyFruit Repository",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "repo",
+    "spicyfruit",
+    "api"
+  ],
+  "author": "Orangebananaspy",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "dateformat": "^3.0.3",
+    "google-auth-library": "^2.0.0",
+    "mysql": "^2.16.0",
+    "randomatic": "^3.1.1",
+    "util.promisify": "^1.0.0"
+  },
+  "devDependencies": {
+    "express": "^4.16.4"
+  }
+}

@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  spicyfruit_db:
+    container_name: spicyfruit_db
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'spicyfruit'
+      MYSQL_USER: 'spicyfruit'
+      MYSQL_PASSWORD: 'eRSw9612'
+      MYSQL_ROOT_PASSWORD: 'qwmn90_+'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-database\data:/var/lib/mysql
+  spicyfruit_api:
+    container_name: spicyfruit_api
+    restart: always
+    build: ./spicyfruit-api
+    ports:
+      - '3000:3000'
+  spicyfruit_backend:
+    container_name: spicyfruit_backend
+    restart: always
+    build: ./spicyfruit-backend
+    ports:
+      - '80:80'
+networks:
+  default:
+    name: spicyfruit_network
+    driver: bridge

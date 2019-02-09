@@ -1,0 +1,3 @@
+users(id, email, password, nickName, isBanned, createdOn, lastLogin)
+accounts(id, userID, profilePic, isVerified, isDeveloper, isModerator)
+verifications(id, userID, code, expiryDate)

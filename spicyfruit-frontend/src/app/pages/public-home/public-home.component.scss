@@ -1,0 +1,33 @@
+.ios-background {
+  background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("assets/img/logos/background_3840x1920.svg") no-repeat center center;
+}
+
+.navigation-bar {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.logo-background {
+  border-radius: 75px;
+  height: 150px;
+  width: 150px;
+  margin: 0 auto;
+  background: url("assets/img/logos/background_150.svg") no-repeat center center;
+  box-shadow: 0 10px 60px black;
+}
+
+.logo-background img {
+  border-radius:76px;
+  width: 152px;
+  height: 152px;
+  margin-top: -1px;
+  margin-left: -1px;
+}
+
+.package-icon {
+  height: 66px;
+  width: 66px;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+}

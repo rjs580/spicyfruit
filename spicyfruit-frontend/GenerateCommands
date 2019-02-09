@@ -1,0 +1,4 @@
+//// home = name or name of module
+ng g m pages/home --routing
+ng g c pages/home --module=home
+ng g s shared/services/sweetalert

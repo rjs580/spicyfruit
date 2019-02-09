@@ -1,0 +1,107 @@
+<!-- navigation bar -->
+<div class="navigation-bar">
+  <div class="bg-brickRed card-shadow height-50">
+    <ul class="nav justify-content-end px-4" style="padding-top: 10px;">
+      <li class="nav-item">
+        <a class="btn btn-sm btn-raised btn-round btn-tamarind shadow-z-1 px-2" [routerLink]="['/auth']">
+          <i class="ft-log-in mr-1"></i> {{'auth.signIn.title' | translate}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- content -->
+<div class="wrapper mt-1 mx-2">
+  <!-- main header card -->
+  <section>
+    <div class="card card-inverse text-center ios-background img-fluid bg-cover mt-4 card-shadow">
+      <div class="card-body pb-2 px-2">
+        <div class="card-img overlap pt-2">
+          <div class="logo-background">
+            <img src="assets/img/logos/Logo-noshadow.svg" alt="SpicyFruit">
+          </div>
+        </div>
+        <div class="mt-2">
+          <h1 class="card-title font-large-3">{{'main.title' | translate}}</h1>
+          <p class="card-text font-medium-3 text-uppercase">{{'publicHomepage.description' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- under construction alert -->
+  <div class="alert alert-brickRed">
+    <strong>Under construction!</strong> All data is falsified and the site may not work as intended while under construction.
+  </div>
+
+  <!-- featured packages -->
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="content-header">{{'publicHomepage.featuredPackages.title' | translate}}</div>
+        <p class="content-sub-header">{{'publicHomepage.featuredPackages.description' | translate}}</p>
+      </div>
+    </div>
+
+    <div class="row" matchHeight="card">
+      <div *ngFor="let packageCard of featuredPackages" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <a href="#">
+          <div class="card round no-border box-shadow-0 overflow-hidden height-75" onMouseOver="this.classList.remove('box-shadow-0');" onMouseOut="this.classList.add('box-shadow-0');">
+            <div class="card-body d-flex align-items-center">
+              <div class="height-75 width-75 d-flex justify-content-center align-items-center px-1 py-1">
+                <img class="package-icon" src="{{packageCard.packageIcon}}" alt="icons">
+              </div>
+              <div class="height-75 full-width d-flex justify-content-center flex-column pl-1">
+                <span class="tamarind font-medium-3 text-bold-400">{{packageCard.packageName}}</span>
+                <span class="text-muted font-small-2">
+                <small>{{packageCard.price}} - {{packageCard.developer}}</small>
+              </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- recent packages -->
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="content-header">{{'publicHomepage.recentPackages.title' | translate}}</div>
+        <p class="content-sub-header">{{'publicHomepage.recentPackages.description' | translate}}</p>
+      </div>
+    </div>
+
+    <div class="row" matchHeight="card">
+      <div *ngFor="let packageCard of recentPackages" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <a href="#">
+          <div class="card round no-border box-shadow-0 overflow-hidden height-75" onMouseOver="this.classList.remove('box-shadow-0');" onMouseOut="this.classList.add('box-shadow-0');">
+            <div class="card-body d-flex align-items-center">
+              <div class="height-75 width-75 d-flex justify-content-center align-items-center px-1 py-1">
+                <img class="package-icon" src="{{packageCard.packageIcon}}" alt="icons">
+              </div>
+              <div class="height-75 full-width d-flex justify-content-center flex-column pl-1">
+                <span class="tamarind font-medium-3 text-bold-400">{{packageCard.packageName}}</span>
+                <span class="text-muted font-small-2">
+                <small>{{packageCard.price}} - {{packageCard.developer}}</small>
+              </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer  -->
+  <div class="mx-2 mt-4">
+    <p class="clearfix text-muted text-sm-center navbar-border">
+      <span>
+        Copyright &copy; {{currentDate | date: 'yyyy'}} <a href="https://twitter.com/orangebananaspy" target="_blank" class="text-bold-800 tamarind darken-2">ORANGEBANANASPY</a>, All rights reserved.
+      </span>
+    </p>
+  </div>
+</div>
+

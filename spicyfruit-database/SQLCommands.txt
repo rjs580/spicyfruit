@@ -1,0 +1,55 @@
+0 = false, 1 = true
+
+create table if not exists users (
+  id int(20) unsigned not null auto_increment,
+  email varchar(255) default null,
+  password varchar(255) default null,
+  nickName varchar(255) default null,
+  isBanned boolean not null default 0,
+  createdOn datetime not null default current_timestamp,
+  lastLogin datetime not null default current_timestamp,
+  primary key (id),
+  unique key email (email)
+) engine = InnoDB default charset = UTF8MB4;
+
+create table if not exists accounts (
+  id int(20) unsigned not null auto_increment,
+  userID int(20) unsigned not null,
+  profilePic varchar(255) default null,
+  isVerified boolean not null default 0,
+  isDeveloper boolean not null default 0,
+  isModerator boolean not null default 0,
+  primary key (id),
+  unique key (userID),
+  foreign key (userID) references users(id)
+) engine = InnoDB default charset = UTF8MB4;
+
+create table if not exists verifications (
+  id int(20) unsigned not null auto_increment,
+  userID int(20) unsigned not null,
+  code varchar(255) not null,
+  expiryDate datetime not null default current_timestamp,
+  primary key (id),
+  unique key (userID),
+  foreign key (userID) references users(id)
+) engine = InnoDB default charset = UTF8MB4;
+
+insert into users (email, password, nickName) values ('testEmail', 'pass', 'testName');
+insert into accounts (userID) values ((select id from users where email = 'testEmail'));
+insert into verifications (userID, code, expiryDate) values ((select id from users where email = 'testEmail'), 'testCode', (now() + interval 1 minute));
+
+update verifications set code = 'testCode', expiryDate = (now() + interval 1 minute) where userID = 'id';
+select code from verifications where userID = 1 AND expiryDate > now();
+
+update users set lastLogin = now() where id = 1;
+select * from users;
+select * from users where id = 1;
+
+delete from accounts;
+alter table accounts auto_increment = 1;
+
+delete from verifications;
+alter table verifications auto_increment = 1;
+
+delete from users;
+alter table users auto_increment = 1;

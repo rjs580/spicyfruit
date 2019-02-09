@@ -1,0 +1,68 @@
+<section>
+  <div class="card card-inverse ios-background img-fluid bg-cover card-shadow">
+    <div class="card-body">
+      <div class="card-block px-2 py-3">
+        <p class="card-title font-large-2" [translate]="'privateHomepage.welcome'" [translateParams]="{value: nickName}"></p>
+        <p class="card-text text-uppercase"><span>{{'privateHomepage.lastSignIn' | translate}}</span> {{lastLogin | date:'medium'}} <a class="ft-info ml-1" placement="bottom" ngbTooltip="Please contact the administrator if this was not you"></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recent-purchased">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">Recently Purchased</div>
+      <p class="content-sub-header">
+        <a href="#">View more purchases...</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card-group">
+        <div class="card">
+          <div class="card-body">
+            <img class="card-img-top img-fluid" src="assets/img/photos/04.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Tweak 1</h4>
+              <p class="card-text">This contains the brief description of tweak 1.</p>
+              <p class="card-text"><small class="text-muted">Purchased 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <img class="card-img-top img-fluid" src="assets/img/photos/01.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Tweak 2</h4>
+              <p class="card-text">This contains the brief description of tweak 2.</p>
+              <p class="card-text"><small class="text-muted">Purchased 10 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <img class="card-img-top img-fluid" src="assets/img/photos/04.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Tweak 3</h4>
+              <p class="card-text">This contains the brief description of tweak 3.</p>
+              <p class="card-text"><small class="text-muted">Purchased 15 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <img class="card-img-top img-fluid" src="assets/img/photos/01.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Tweak 4</h4>
+              <p class="card-text">This contains the brief description of tweak 4.</p>
+              <p class="card-text"><small class="text-muted">Purchased 1 hour ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
