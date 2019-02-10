@@ -153,7 +153,7 @@ export class OAuthService {
     return OAuthService.currentUser === null ? null : OAuthService.currentUser;
   }
 
-  isAuthenticated(): Observable<boolean> {
+  isAuthenticated(showErrors: boolean = true): Observable<boolean> {
     return this.http.get('http://localhost:8080/auth/getSessionUser.php', {withCredentials: true}).pipe(
       map(msg => {
         let serverMsg = Msg.deserialize(msg);
@@ -161,7 +161,7 @@ export class OAuthService {
           OAuthService.currentUser = User.deserialize(serverMsg.message);
           return true;
         } else if (serverMsg.status == MSGType.Error) {
-          SweetAlert.errorAlert(serverMsg.message);
+          if(showErrors === true) SweetAlert.errorAlert(serverMsg.message);
           throw new Error(serverMsg.message);
         }
         throw new Error('Could not parse the message properly');

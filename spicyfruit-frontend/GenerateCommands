@@ -2,3 +2,10 @@
 ng g m pages/home --routing
 ng g c pages/home --module=home
 ng g s shared/services/sweetalert
+
+
+{
+  path: '',
+  component: ,
+  data: {title: 'Terms & Conditions'}
+}

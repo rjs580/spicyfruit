@@ -19,7 +19,7 @@ export class SignInComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.oAuthService.isAuthenticated().subscribe(value => {
+    this.oAuthService.isAuthenticated(false).subscribe(value => {
       if(value === true) {
         this.router.navigate(['/pHome']);
       }

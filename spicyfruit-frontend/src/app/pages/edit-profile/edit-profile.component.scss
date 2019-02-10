@@ -1,0 +1,20 @@
+$profileSize: 100px;
+
+.profile-background {
+  border-radius: 20%;
+  height: $profileSize;
+  width: $profileSize;
+  //margin: 0 auto;
+  background: url("assets/img/logos/background_150.svg") no-repeat center center;
+  background-size: cover;
+  box-shadow: 0 1px 26px grey;
+  overflow: hidden;
+}
+
+.profile-background img {
+  border-radius: 48%;
+  width: ($profileSize + 2px);
+  height: ($profileSize + 2px);
+  margin-top: 2px;
+  margin-left: -1px;
+}
