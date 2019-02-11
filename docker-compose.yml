@@ -29,10 +29,12 @@ services:
     container_name: spicyfruit_backend
     restart: always
     build: ./spicyfruit-backend
+    volumes:
+      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-backend:/var/www/html
     depends_on:
       - 'spicyfruit_api'
     ports:
-      - '8080:8080'
+      - '8080:80'
 networks:
   default:
     name: obs_network
