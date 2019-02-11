@@ -1,51 +1,52 @@
 <div class="card text-left">
-  <div class="card-body px-2 pt-2">
+  <div class="card-body px-4 pt-4">
     <form #editForm="ngForm" name="editForm" id="editForm" (submit)="onSubmit()" class="form-horizontal" novalidate>
-      <div class="form-group">
-        <label for="picInput">Profile Picture
-          <small><strong>(Max 1MB)</strong></small>
-        </label>
-        <div class="row">
-          <div class="col-12">
-            <div class="card-img">
-              <div class="profile-background mb-1 mt-1"><img [src]="profilePic" alt="Profile"></div>
+      <div class="form-body">
+        <div class="form-group">
+          <label for="picInput">Profile Picture
+            <small><strong>(Max 1MB)</strong></small>
+          </label>
+          <div class="row">
+            <div class="col-12">
+              <div class="card-img">
+                <div class="profile-background mb-1 mt-1"><img [src]="profilePic" alt="Profile"></div>
+              </div>
             </div>
-          </div>
-          <div class="col-12 mt-1">
-            <button onclick="document.getElementById('picInput').click();" type="button" class="btn btn-block btn-raised btn-outline-brickRed text-left">
-              <i class="fa fa-picture-o fa-2x mr-2 valign-middle"></i>
-              <span id="profile-pic-text" class="valign-middle">
+            <div class="col-12 mt-1">
+              <button onclick="document.getElementById('picInput').click();" type="button" class="btn btn-block btn-raised btn-outline-brickRed text-left">
+                <i class="fa fa-picture-o fa-2x mr-2 valign-middle"></i>
+                <span id="profile-pic-text" class="valign-middle">
                       {{ (picInput !== null && picInput.files !== null && picInput.files.length > 0) ? picInput.files[0].name : "Choose image" }}
                     </span>
-            </button>
-            <input #picInput id="picInput" name="picInput" type="file" class="form-control display-hidden" aria-invalid="false" accept="image/x-png,image/jpeg">
+              </button>
+              <input [(ngModel)]="editProfile.profilePic" #picInput id="picInput" name="picInput" type="file" class="form-control display-hidden" aria-invalid="false" accept="image/x-png,image/jpeg">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group" style="margin-top: -15px;">
-        <label for="name">Name
-          <small><strong>(Alias)</strong></small>
-        </label>
-        <input #name id="name" name="name" type="text" class="form-control form-control-brickRed brickRed" placeholder="{{user.nickName}}">
-      </div>
-      <div class="form-group">
-        <label for="email">Email <a class="ft-info" placement="bottom" ngbTooltip="Email cannot be changed, however please contact the administrator to change it at least once"></a></label>
-        <input #email id="email" name="email" type="text" class="form-control form-control-brickRed brickRed" value="{{user.userEmail}}" disabled>
-      </div>
-      <div *ngIf="!user.isVerified" class="form-group">
-        <label for="verifyButton">Verify Account</label>
-        <div class="">
-          <button id="verifyButton" type="button" class="valign-middle btn btn-raised btn-outline-brickRed">
-            <i class="ft-user-check mr-1"></i>
-            Verify
-          </button>
+        <div class="form-group" style="margin-top: -15px;">
+          <label for="name">Name
+            <small><strong>(Alias)</strong></small>
+          </label>
+          <input [(ngModel)]="editProfile.nickName" id="name" name="name" type="text" class="form-control form-control-brickRed brickRed" placeholder="{{user.nickName}}">
         </div>
-      </div>
-      <!--<hr>-->
-      <div class="form-actions">
         <div class="form-group">
-          <button type="submit" class="btn btn-raised btn-round btn-brickRed shadow-z-2 mt-1" [disabled]="!editForm.form.valid">Submit</button>
-          <button type="reset" (click)="onCancel()" class="btn btn-raised btn-round btn-claret shadow-z-2 ml-2">Cancel</button>
+          <label for="email">Email <a class="ft-info" placement="bottom" ngbTooltip="Email cannot be changed, however please contact the administrator to change it at least once"></a></label>
+          <input id="email" name="email" type="text" class="form-control form-control-brickRed brickRed" value="{{user.userEmail}}" disabled>
+        </div>
+        <div *ngIf="!user.isVerified" class="form-group">
+          <label for="verifyButton">Verify Account</label>
+          <div class="">
+            <button id="verifyButton" type="button" (click)="verifyAccount()" class="valign-middle btn btn-raised btn-outline-brickRed">
+              <i class="ft-user-check mr-1"></i>
+              Verify
+            </button>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="form-group">
+            <button type="submit" class="btn btn-raised btn-round btn-brickRed shadow-z-2 mt-1" [disabled]="!editForm.form.dirty">Submit</button>
+            <button type="reset" (click)="onCancel()" class="btn btn-raised btn-round btn-claret shadow-z-2 ml-1">Cancel</button>
+          </div>
         </div>
       </div>
     </form>

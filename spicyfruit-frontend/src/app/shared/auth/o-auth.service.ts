@@ -10,6 +10,7 @@ import {SweetAlert} from '../services/sweetalert.service';
 import {DEFAULT_INTERRUPTSOURCES, Idle} from '@ng-idle/core';
 import {Keepalive} from '@ng-idle/keepalive';
 import {User} from '../models/User.model';
+import {EditUserProfile} from '../models/EditProfile.model';
 
 @Injectable()
 export class OAuthService {
@@ -151,6 +152,10 @@ export class OAuthService {
 
   static getUser(): User {
     return OAuthService.currentUser === null ? null : OAuthService.currentUser;
+  }
+
+  static editProfile(editUser: EditUserProfile) {
+
   }
 
   isAuthenticated(showErrors: boolean = true): Observable<boolean> {

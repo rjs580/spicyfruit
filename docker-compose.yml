@@ -21,12 +21,16 @@ services:
     container_name: spicyfruit_api
     restart: always
     build: ./spicyfruit-api
+    depends_on:
+      - 'spicyfruit_db'
     ports:
       - '3000:3000'
   spicyfruit_backend:
     container_name: spicyfruit_backend
     restart: always
     build: ./spicyfruit-backend
+    depends_on:
+      - 'spicyfruit_api'
     ports:
       - '8080:8080'
 networks:

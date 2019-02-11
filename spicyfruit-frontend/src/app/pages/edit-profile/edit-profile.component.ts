@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {OAuthService} from '../../shared/auth/o-auth.service';
 import {User} from '../../shared/models/User.model';
+import {EditUserProfile} from '../../shared/models/EditProfile.model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -9,10 +10,12 @@ import {User} from '../../shared/models/User.model';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
+  editProfile: EditUserProfile;
   profilePic: string = null;
   user: User = null;
 
   constructor(private location: Location) {
+    this.editProfile = new EditUserProfile();
   }
 
   ngOnInit() {
@@ -21,11 +24,16 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
+    OAuthService.editProfile(this.editProfile);
   }
 
   onCancel() {
     setTimeout(() => {
       this.location.back();
     }, 400);
+  }
+
+  verifyAccount() {
+
   }
 }

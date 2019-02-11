@@ -6,7 +6,7 @@
   $postdata = file_get_contents("php://input");
   $postdata = json_decode($postdata);
 
-  if(json_last_error() === JSON_ERROR_NONE && isset($postdata->userID)) {
+  if(json_last_error() === JSON_ERROR_NONE && isset($postdata->userID) && isset($postdata->userEmail)) {
     if(($postdata->userType === SocialUser || $postdata->userType === Regular) && isset($postdata->userEmail)) {
       $userType = $postdata->userType;
       $email = $postdata->userEmail;
