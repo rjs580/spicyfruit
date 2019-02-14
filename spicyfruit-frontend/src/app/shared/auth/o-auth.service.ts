@@ -11,6 +11,7 @@ import {DEFAULT_INTERRUPTSOURCES, Idle} from '@ng-idle/core';
 import {Keepalive} from '@ng-idle/keepalive';
 import {User} from '../models/User.model';
 import {EditUserProfile} from '../models/EditProfile.model';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable()
 export class OAuthService {
@@ -22,7 +23,7 @@ export class OAuthService {
   private idlingStarted: boolean = false;
   private static currentUser: User = null;
 
-  constructor(private http: HttpClient, private router: Router, private idle: Idle, private keepalive: Keepalive) {
+  constructor(private http: HttpClient, private router: Router, private idle: Idle, private keepalive: Keepalive, private sanitizer: DomSanitizer) {
     // this provides total of 1740 seconds
     this.idle.setIdle(this.idleTime - this.timeOutTime);
     this.idle.setTimeout(this.timeOutTime);
@@ -154,8 +155,24 @@ export class OAuthService {
     return OAuthService.currentUser === null ? null : OAuthService.currentUser;
   }
 
-  static editProfile(editUser: EditUserProfile) {
-
+  editProfile(editUser: EditUserProfile) {
+    SweetAlert.loadingAlert();
+    this.http.post('http://localhost:8080/user/editAccount.php', editUser.toFormData(), {withCredentials: true}).subscribe(msg => {
+      let serverMsg = Msg.deserialize(msg);
+      if (serverMsg.status == MSGType.Success) {
+        this.router.navigate(['/pHome']);
+        location.reload();
+      } else if (serverMsg.status == MSGType.Error) {
+        SweetAlert.errorAlert(serverMsg.message);
+      } else {
+        SweetAlert.errorAlert('Could not parse the message received from server');
+      }
+    }, err => {
+      if (err) {
+        console.error(err);
+      }
+      SweetAlert.close();
+    });
   }
 
   isAuthenticated(showErrors: boolean = true): Observable<boolean> {
@@ -163,7 +180,7 @@ export class OAuthService {
       map(msg => {
         let serverMsg = Msg.deserialize(msg);
         if (serverMsg.status == MSGType.Success) {
-          OAuthService.currentUser = User.deserialize(serverMsg.message);
+          OAuthService.currentUser = User.deserialize(this.sanitizer, serverMsg.message);
           return true;
         } else if (serverMsg.status == MSGType.Error) {
           if(showErrors === true) SweetAlert.errorAlert(serverMsg.message);
@@ -172,7 +189,7 @@ export class OAuthService {
         throw new Error('Could not parse the message properly');
       }), catchError((err) => {
         if (err) {
-          console.error(err.toString());
+          console.error(err);
         }
         this.router.navigate(['/auth/sign-in']);
         return of(false);

@@ -13,10 +13,10 @@ $profileSize: 48px;
 
 .profile-background img {
   border-radius: 48%;
-  width: ($profileSize + 2px);
-  height: ($profileSize + 2px);
+  width: ($profileSize - 4px);
+  height: ($profileSize - 4px);
   margin-top: 2px;
-  margin-left: -1px;
+  margin-left: 2px;
 }
 
 .dropdown-toggle::after {

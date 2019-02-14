@@ -20,6 +20,7 @@
 
   function saveUserToSession($user) {
     updateLastActivityTime();
+    $_SESSION["profileDirty"] = false;
     $_SESSION["user"] = $user;
   }
 

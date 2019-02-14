@@ -11,10 +11,10 @@ import {EditUserProfile} from '../../shared/models/EditProfile.model';
 })
 export class EditProfileComponent implements OnInit {
   editProfile: EditUserProfile;
-  profilePic: string = null;
+  profilePic: any = null;
   user: User = null;
 
-  constructor(private location: Location) {
+  constructor(private location: Location, private oauthService: OAuthService) {
     this.editProfile = new EditUserProfile();
   }
 
@@ -24,7 +24,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    OAuthService.editProfile(this.editProfile);
+    this.editProfile.profilePic = (<HTMLInputElement> document.getElementById('picInput')).files[0];
+    this.oauthService.editProfile(this.editProfile);
   }
 
   onCancel() {

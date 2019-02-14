@@ -1,4 +1,5 @@
 <?php
+  include("../commons/log.php");
   include("../commons/common.php");
   include("../commons/sessions.php");
   include("../commons/enumConstants.php");
@@ -31,6 +32,8 @@
             if ($obj->code === ErrorCode) {
               sendErrorMSG($obj->message);
             } else if ($obj->code === SuccessCode) {
+              logAccess('User(' . $obj->message->userID . ', ' . $obj->message->userEmail . ', ' . $obj->message->nickName . ') signed in');
+
               saveUserToSession($obj->message);
               sendSuccessMSG("Success");
             } else {

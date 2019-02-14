@@ -1,6 +1,6 @@
 <div class="card text-left">
   <div class="card-body px-4 pt-4">
-    <form #editForm="ngForm" name="editForm" id="editForm" (submit)="onSubmit()" class="form-horizontal" novalidate>
+    <form #editForm="ngForm" name="editForm" id="editForm" (ngSubmit)="onSubmit()" class="form-horizontal" novalidate>
       <div class="form-body">
         <div class="form-group">
           <label for="picInput">Profile Picture
@@ -19,7 +19,7 @@
                       {{ (picInput !== null && picInput.files !== null && picInput.files.length > 0) ? picInput.files[0].name : "Choose image" }}
                     </span>
               </button>
-              <input [(ngModel)]="editProfile.profilePic" #picInput id="picInput" name="picInput" type="file" class="form-control display-hidden" aria-invalid="false" accept="image/x-png,image/jpeg">
+              <input [(ngModel)]="editProfile.throwAway" #picInput id="picInput" name="picInput" type="file" class="form-control display-hidden" aria-invalid="false" accept="image/x-png,image/jpeg">
             </div>
           </div>
         </div>

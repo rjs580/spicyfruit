@@ -6,6 +6,7 @@ const {OAuth2Client} = require("google-auth-library"); // validate google users
 const bcrypt = require("bcrypt"); // encrypt/decrypt passwords
 const dns = require("dns"); // dns lookup
 const util = require("util"); // used to promisify the sql queries
+const mysql = require("mysql");
 
 const googleClient = new OAuth2Client(constants.CLIENT_ID); // google client validator
 
@@ -32,6 +33,31 @@ function createAuthUser(request) {
       };
 
       resolve(authUser);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+function createEditUser(request) {
+  return new Promise((resolve, reject) => {
+    try {
+      let urlParts = url.parse(request.url, true);
+      let params = urlParts.query;
+      let editUser = {
+        email: params.email,
+        id: params.id
+      };
+
+      if (parseInt(params.nickName) !== -1) {
+        editUser.nickName = params.nickName;
+      }
+
+      if (parseInt(params.profilePic) !== -1) {
+        editUser.profilePic = params.profilePic;
+      }
+
+      resolve(editUser);
     } catch (err) {
       reject(err);
     }
@@ -99,7 +125,7 @@ module.exports = {
 
     let hostnameAccepted = false;
     let t = await lookupPromise(requestIP);
-    if(t && t.length > 0) hostnameAccepted = constants.ALLOWED_HOSTNAMES_PRIVATEAPI.includes(t[0]);
+    if (t && t.length > 0) hostnameAccepted = constants.ALLOWED_HOSTNAMES_PRIVATEAPI.includes(t[0]);
 
     if (constants.ALLOWED_IP_PRIVATEAPI.includes(requestIP) || hostnameAccepted === true) {
       next();
@@ -224,4 +250,26 @@ module.exports = {
   forgotPassword: async function (request, response) {
 
   },
+
+  // edit profile
+  editProfile: async function (request, response) {
+    let user = await createEditUser(request);
+
+    if ("nickName" in user) {
+      await pool.query(`UPDATE users SET nickName = ${mysql.escape(user.nickName)} WHERE id = ${mysql.escape(user.id)} AND email = ${mysql.escape(user.email)}`);
+    }
+
+    if ("profilePic" in user) {
+      let updateAccounts = await pool.query(`UPDATE accounts SET profilePic = ${mysql.escape(user.profilePic)} WHERE userID = (SELECT id FROM users WHERE email = ${mysql.escape(user.email)} AND id = ${mysql.escape(user.id)})`);
+      console.log(JSON.stringify(updateAccounts));
+    }
+
+    let dbUserAccountRow = await pool.query(`SELECT * FROM accounts WHERE userID = (SELECT id FROM users WHERE email = ?)`, [user.email]);
+    if (dbUserAccountRow.length <= 0) {
+      response.json(encodeResponse(CODE.error, "Database error retrieving user account"));
+    } else {
+      let dbUserRow = await pool.query(`SELECT * FROM users WHERE email = ?`, [user.email]);
+      response.json(encodeResponse(CODE.success, createAccountsUser(dbUserRow[0], dbUserAccountRow[0])));
+    }
+  }
 };

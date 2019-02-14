@@ -1,8 +1,10 @@
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+
 export class User {
   nickName: string;
   userEmail: string;
   userID: number;
-  profilePic: string;
+  profilePic: SafeResourceUrl;
   isVerified: boolean;
   isDeveloper: boolean;
   isModerator: boolean;
@@ -11,11 +13,12 @@ export class User {
   constructor() {
   }
 
-  static deserialize(json: any): User {
+  static deserialize(sanitizer: DomSanitizer, json: any): User {
     let msg = Object.create(User.prototype);
 
     return Object.assign(msg, json, {
       lastLogin: new Date(json.lastLogin + " GMT"),
+      profilePic: sanitizer.bypassSecurityTrustResourceUrl(json.profilePic),
       // to test
       isDeveloper: true,
       isModerator: true
