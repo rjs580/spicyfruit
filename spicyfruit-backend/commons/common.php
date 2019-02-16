@@ -10,7 +10,7 @@
   }
 
   function sendErrorMSG($message) {
-    header("Access-Control-Allow-Origin: http://localhost:4200");
+    header("Access-Control-Allow-Origin: http://localhost");
     header("Access-Control-Allow-Credentials: true");
     header("Content-type: application/json");
     $arr = array ("code" => -1, "message" => $message);
@@ -19,7 +19,7 @@
   }
 
   function sendSuccessMSG($message) {
-    header("Access-Control-Allow-Origin: http://localhost:4200");
+    header("Access-Control-Allow-Origin: http://localhost");
     header("Access-Control-Allow-Credentials: true");
     header("Content-type: application/json");
     $arr = array ("code" => 0, "message" => $message);
