@@ -15,7 +15,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable()
 export class OAuthService {
-  private backendString:string = "localhost/backend";
+  private backendString:string = "https://spicyfruit.me/backend";
 
   private idleTime: number = 600; // 10 min which gives server that 2 minute to sync if needed
   private timeOutTime: number = 10; // 10 seconds
@@ -60,7 +60,7 @@ export class OAuthService {
     // send message to server every interval
     keepalive.interval(this.idleTime);
     keepalive.onPing.subscribe(() => {
-      this.http.get('http://' + this.backendString + '/auth/keepAliveUser.php', {withCredentials: true}).subscribe(() => {
+      this.http.get(this.backendString + '/auth/keepAliveUser.php', {withCredentials: true}).subscribe(() => {
       }, err => {
         if (err) {
           console.error(err.toString());
@@ -87,7 +87,7 @@ export class OAuthService {
   signInUser(user: AuthUser): void {
     SweetAlert.loadingAlert();
     let userObject = user.toJSON();
-    this.http.post('http://' + this.backendString + '/auth/signIn.php', userObject, {withCredentials: true}).subscribe(msg => {
+    this.http.post(this.backendString + '/auth/signIn.php', userObject, {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -108,7 +108,7 @@ export class OAuthService {
   signUpUser(user: AuthUser): void {
     SweetAlert.loadingAlert();
     let userObject = user.toJSON();
-    this.http.post('http://' + this.backendString + '/auth/signUp.php', userObject, {withCredentials: true}).subscribe(msg => {
+    this.http.post(this.backendString + '/auth/signUp.php', userObject, {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -129,7 +129,7 @@ export class OAuthService {
 
   signOut(timedOut?: boolean): void {
     SweetAlert.loadingAlert();
-    this.http.get('http://' + this.backendString + '/auth/signOut.php', {withCredentials: true}).subscribe(msg => {
+    this.http.get(this.backendString + '/auth/signOut.php', {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         SweetAlert.close();
@@ -156,7 +156,7 @@ export class OAuthService {
 
   editProfile(editUser: EditUserProfile) {
     SweetAlert.loadingAlert();
-    this.http.post('http://' + this.backendString + '/user/editAccount.php', editUser.toFormData(), {withCredentials: true}).subscribe(msg => {
+    this.http.post(this.backendString + '/user/editAccount.php', editUser.toFormData(), {withCredentials: true}).subscribe(msg => {
       let serverMsg = Msg.deserialize(msg);
       if (serverMsg.status == MSGType.Success) {
         this.router.navigate(['/pHome']);
@@ -174,7 +174,7 @@ export class OAuthService {
   }
 
   isAuthenticated(showErrors: boolean = true): Observable<boolean> {
-    return this.http.get('http://' + this.backendString + '/auth/getSessionUser.php', {withCredentials: true}).pipe(
+    return this.http.get(this.backendString + '/auth/getSessionUser.php', {withCredentials: true}).pipe(
       map(msg => {
         let serverMsg = Msg.deserialize(msg);
         if (serverMsg.status == MSGType.Success) {

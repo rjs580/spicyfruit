@@ -46,10 +46,13 @@ services:
     volumes:
       - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-frontend\dist:/usr/share/nginx/html
       - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-server\default.conf:/etc/nginx/conf.d/default.conf
+      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-server\logs:/var/log/nginx
     depends_on:
       - 'spicyfruit_backend'
-    ports:
-      - '80:80'
+    # ports:
+    #   - '8080:80'
+    expose:
+      - '80'
 networks:
   default:
     name: obs_network

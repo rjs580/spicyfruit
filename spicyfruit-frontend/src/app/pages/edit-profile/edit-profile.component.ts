@@ -3,6 +3,7 @@ import {Location} from '@angular/common';
 import {OAuthService} from '../../shared/auth/o-auth.service';
 import {User} from '../../shared/models/User.model';
 import {EditUserProfile} from '../../shared/models/EditProfile.model';
+import {SweetAlert} from '../../shared/services/sweetalert.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,7 +26,11 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     this.editProfile.profilePic = (<HTMLInputElement> document.getElementById('picInput')).files[0];
-    this.oauthService.editProfile(this.editProfile);
+    if(this.editProfile.profilePic.size > 1048576) {
+      SweetAlert.errorAlert("File size is too big, it needs to be less than 1mb");
+    } else {
+      this.oauthService.editProfile(this.editProfile);
+    }
   }
 
   onCancel() {
