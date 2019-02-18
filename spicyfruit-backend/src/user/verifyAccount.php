@@ -1,10 +1,22 @@
 <?php
   include("../commons/common.php");
-  include("../commons/sessions.php");
   include("../commons/email.php");
 
-  if (isSessionExpired() === false && isset($user) && isset($user->userID) && isset($user->userEmail) && isset($user->nickName)) {
-
-  } else {
-    sendErrorMSG("No user for this session");
+  function getCode() {
+    $digits = 6;
+    return str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
   }
+
+    $code = getCode();
+    $_SESSION["verifyCode"] = $code;
+
+    ob_start();
+    include("../templates/verification-email.php");
+    $email_template = ob_get_contents();
+    ob_end_clean();
+
+    if(isset($_SESSION["verifyCode"]) && emailUserAsNoReply("Verify Account", $email_template)) {
+      sendSuccessMSG("Code sent");
+    } else {
+      sendErrorMSG("Internal Error");
+    }

@@ -19,13 +19,13 @@ export class NavbarComponent implements AfterViewChecked, AfterContentChecked {
 
   constructor(private oAuthService: OAuthService, private titleService: Title, public translate: TranslateService) {
     this.user = OAuthService.getUser();
-    this.profilePic = this.user.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : this.user.profilePic;
+    this.profilePic = this.user.profilePic;
   }
 
   ngAfterContentChecked() {
     this.documentTitle = this.titleService.getTitle();
     this.user = OAuthService.getUser();
-    // this.profilePic = this.user.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : this.convertBlobToURL(this.user.profilePic);
+    this.profilePic = this.user.profilePic;
   }
 
   ngAfterViewChecked() {
@@ -38,6 +38,10 @@ export class NavbarComponent implements AfterViewChecked, AfterContentChecked {
         this.placement = 'bottom-right';
       }
     }, 3000);
+  }
+
+  verifyAccount() {
+    this.oAuthService.verifyAccount();
   }
 
   signOut() {

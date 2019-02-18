@@ -18,7 +18,7 @@ export class User {
 
     return Object.assign(msg, json, {
       lastLogin: new Date(json.lastLogin + " GMT"),
-      profilePic: sanitizer.bypassSecurityTrustResourceUrl(json.profilePic),
+      profilePic: json.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : sanitizer.bypassSecurityTrustResourceUrl(json.profilePic),
       // to test
       isDeveloper: true,
       isModerator: true

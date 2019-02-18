@@ -15,6 +15,7 @@ router.get("/signUp", asyncWrapper(privateFunctions.signUp));
 router.get("/signIn", asyncWrapper(privateFunctions.signIn));
 router.get("/forgotPassword", asyncWrapper(privateFunctions.forgotPassword));
 router.get("/editProfile", asyncWrapper(privateFunctions.editProfile));
+router.get("/accountVerified", asyncWrapper(privateFunctions.accountVerified));
 
 // export the private router
 module.exports = router;

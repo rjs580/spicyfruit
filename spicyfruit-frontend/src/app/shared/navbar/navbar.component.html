@@ -28,6 +28,10 @@
               <div class="px-2">
                 <p class="text-uppercase font-small-3 text-left text-bold-400"><i class="{{user.isVerified ? 'ft-check-circle' : 'ft-circle'}} mr-1"></i>{{user.nickName}}</p>
                 <p class="text-uppercase font-small-1 text-left" style="margin-top: -28px;">{{user.userEmail}}</p>
+                <button *ngIf="!user.isVerified" style="margin-bottom: -84px; margin-top: -84px;" id="verifyButton" type="button" (click)="verifyAccount()" class="valign-middle btn btn-sm btn-round btn-raised btn-outline-brickRed">
+                  <i class="ft-user-check mr-1"></i>
+                  Verify
+                </button>
               </div>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item py-1" [routerLink]="['/editProfile']">

@@ -21,7 +21,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = OAuthService.getUser();
-    this.profilePic = this.user.profilePic === null ? 'assets/img/portrait/avatars/avatar-08.png' : this.user.profilePic;
+    this.profilePic = this.user.profilePic;
   }
 
   onSubmit() {
@@ -37,9 +37,5 @@ export class EditProfileComponent implements OnInit {
     setTimeout(() => {
       this.location.back();
     }, 400);
-  }
-
-  verifyAccount() {
-    this.oauthService.verifyAccount();
   }
 }

@@ -6,6 +6,10 @@ export class SweetAlert {
   constructor() {
   }
 
+  static swal() {
+    return Swal;
+  }
+
   static loadingAlert(title?: string): void {
     Swal.fire({
       title: (title ? title : 'Loading'),

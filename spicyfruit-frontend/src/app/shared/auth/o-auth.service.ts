@@ -12,6 +12,7 @@ import {Keepalive} from '@ng-idle/keepalive';
 import {User} from '../models/User.model';
 import {EditUserProfile} from '../models/EditProfile.model';
 import {DomSanitizer} from '@angular/platform-browser';
+import Swal from "sweetalert2";
 
 @Injectable()
 export class OAuthService {
@@ -174,7 +175,73 @@ export class OAuthService {
   }
 
   verifyAccount() {
+    SweetAlert.loadingAlert("Emailing Code");
+    this.http.get(this.backendString + '/user/verifyAccount.php', {withCredentials: true}).subscribe(msg => {
+      let serverMsg = Msg.deserialize(msg);
+      if (serverMsg.status == MSGType.Success) {
+        SweetAlert.swal().fire({
+          title: "Email Sent",
+          type: "success",
+          showCancelButton: true,
+          confirmButtonText: "Got it!",
+          cancelButtonText: "Resend email!",
+          allowOutsideClick: false
+        }).then((result) => {
+          if(result.value) {
+            // got the email
+            SweetAlert.swal().fire({
+              title: "Verification Code",
+              input: "number",
+              showCancelButton: true,
+              confirmButtonText: "Verify",
+              showLoaderOnConfirm: true,
+              allowOutsideClick: false,
+              preConfirm: (inputValue) => {
+                return this.http.get(this.backendString + '/user/verifyAccountCode.php?code=' + inputValue, {withCredentials: true}).toPromise()
+                  .then(res => {
+                    let codeMsg = Msg.deserialize(res);
+                    if(codeMsg.status == MSGType.Success) {
+                      return {success: codeMsg.message};
+                    } else if (codeMsg.status == MSGType.Error) {
+                      return {error: codeMsg.message};
+                    } else {
+                      return {error: codeMsg.message};
+                    }
+                  })
+                  .catch(err => {
+                    if(err) {
+                      OAuthService.handleErr(err);
+                    }
+                  })
+              }
+            }).then((result) => {
+              if(result.value) {
+                if(result.value.success) {
+                  SweetAlert.swal().fire("Success", "Account Verified", "success").then(() => {
+                    location.reload();
+                  });
+                }
+                if(result.value.error) SweetAlert.errorAlert(result.value.error);
+              } else {
+                SweetAlert.errorAlert("Code not entered, please try again!")
+              }
+            });
+          } else if(result.dismiss === SweetAlert.swal().DismissReason.cancel) {
+            // resend email
+            this.verifyAccount();
+          }
+        });
 
+      } else if (serverMsg.status == MSGType.Error) {
+        SweetAlert.errorAlert(serverMsg.message);
+      } else {
+        SweetAlert.errorAlert('Could not parse the message received from server');
+      }
+    }, err => {
+      if (err) {
+        OAuthService.handleErr(err);
+      }
+    });
   }
 
   isAuthenticated(showErrors: boolean = true): Observable<boolean> {
@@ -200,6 +267,7 @@ export class OAuthService {
   }
 
   private static handleErr(err) {
+    SweetAlert.close();
     if(err instanceof Error || typeof err === 'object') {
       console.error(err.toString());
     } else {

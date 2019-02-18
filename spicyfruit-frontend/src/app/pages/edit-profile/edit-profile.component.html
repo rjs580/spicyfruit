@@ -33,14 +33,7 @@
           <label for="email">Email <a class="ft-info" placement="bottom" ngbTooltip="Email cannot be changed, however please contact the administrator to change it at least once"></a></label>
           <input id="email" name="email" type="text" class="form-control form-control-brickRed brickRed" value="{{user.userEmail}}" disabled>
         </div>
-        <div *ngIf="!user.isVerified" class="form-group">
-          <label for="verifyButton">Verify Account</label>
-          <div class="">
-            <button id="verifyButton" type="button" (click)="verifyAccount()" class="valign-middle btn btn-raised btn-outline-brickRed">
-              <i class="ft-user-check mr-1"></i>
-              Verify
-            </button>
-          </div>
+        <div *ngIf="user.isVerified" class="form-group">
         </div>
         <div class="form-actions">
           <div class="form-group">

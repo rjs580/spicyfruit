@@ -260,8 +260,7 @@ module.exports = {
     }
 
     if ("profilePic" in user) {
-      let updateAccounts = await pool.query(`UPDATE accounts SET profilePic = ${mysql.escape(user.profilePic)} WHERE userID = (SELECT id FROM users WHERE email = ${mysql.escape(user.email)} AND id = ${mysql.escape(user.id)})`);
-      console.log(JSON.stringify(updateAccounts));
+      await pool.query(`UPDATE accounts SET profilePic = ${mysql.escape(user.profilePic)} WHERE userID = (SELECT id FROM users WHERE email = ${mysql.escape(user.email)} AND id = ${mysql.escape(user.id)})`);
     }
 
     let dbUserAccountRow = await pool.query(`SELECT * FROM accounts WHERE userID = (SELECT id FROM users WHERE email = ?)`, [user.email]);
@@ -271,5 +270,12 @@ module.exports = {
       let dbUserRow = await pool.query(`SELECT * FROM users WHERE email = ?`, [user.email]);
       response.json(encodeResponse(CODE.success, createAccountsUser(dbUserRow[0], dbUserAccountRow[0])));
     }
+  },
+
+  // account has been verified
+  accountVerified: async function (request, response) {
+    let user = await createEditUser(request);
+    await pool.query(`UPDATE accounts SET isVerified = ${mysql.escape(1)} WHERE userID = (SELECT id FROM users WHERE email = ${mysql.escape(user.email)} AND id = ${mysql.escape(user.id)})`);
+    response.json(encodeResponse(CODE.success, "Verified"));
   }
 };
