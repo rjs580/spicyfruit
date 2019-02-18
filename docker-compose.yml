@@ -11,8 +11,6 @@ services:
       MYSQL_PASSWORD: 'eRSw9612'
       MYSQL_ROOT_PASSWORD: 'qwmn90_+'
       TZ: 'Etc/GMT'
-    # ports:
-    #   - '3306:3306'
     expose:
       - '3306'
     volumes:
@@ -23,8 +21,6 @@ services:
     build: ./spicyfruit-api
     depends_on:
       - 'spicyfruit_db'
-    # ports:
-    #   - '3000:3000'
     expose:
       - '3000'
   spicyfruit_backend:
@@ -32,11 +28,10 @@ services:
     restart: always
     build: ./spicyfruit-backend
     volumes:
-      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-backend:/var/www/html
+      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-backend\src:/var/www/html
+      - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-backend\logs:/var/www/logs
     depends_on:
       - 'spicyfruit_api'
-    # ports:
-    #   - '8080:80'
     expose:
       - '80'
   spicyfruit_server:
@@ -49,8 +44,6 @@ services:
       - C:\Users\rutvik\Documents\spicyfruit\spicyfruit-server\logs:/var/log/nginx
     depends_on:
       - 'spicyfruit_backend'
-    # ports:
-    #   - '8080:80'
     expose:
       - '80'
 networks:

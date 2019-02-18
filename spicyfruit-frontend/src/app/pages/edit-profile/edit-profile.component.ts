@@ -40,6 +40,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   verifyAccount() {
-
+    this.oauthService.verifyAccount();
   }
 }

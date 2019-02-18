@@ -12,11 +12,11 @@ $profileSize: 100px;
 }
 
 .profile-background img {
-  border-radius: 48%;
-  width: ($profileSize - 4px);
-  height: ($profileSize - 4px);
-  margin-top: 2px;
-  margin-left: 2px;
+  border-radius: 0;
+  width: $profileSize;
+  height: $profileSize;
+  margin-top: 0;
+  margin-left: 0;
 }
 
 .form-actions {

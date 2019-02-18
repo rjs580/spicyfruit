@@ -100,7 +100,7 @@ export class OAuthService {
       }
     }, err => {
       if (err) {
-        this.handleErr(err);
+        OAuthService.handleErr(err);
       }
     });
   }
@@ -122,7 +122,7 @@ export class OAuthService {
       }
     }, err => {
       if (err) {
-        this.handleErr(err);
+        OAuthService.handleErr(err);
       }
     });
   }
@@ -145,7 +145,7 @@ export class OAuthService {
       }
     }, err => {
       if (err) {
-        this.handleErr(err);
+        OAuthService.handleErr(err);
       }
     });
   }
@@ -168,9 +168,13 @@ export class OAuthService {
       }
     }, err => {
       if (err) {
-        this.handleErr(err);
+        OAuthService.handleErr(err);
       }
     });
+  }
+
+  verifyAccount() {
+
   }
 
   isAuthenticated(showErrors: boolean = true): Observable<boolean> {
@@ -187,7 +191,7 @@ export class OAuthService {
         throw new Error('Could not parse the message properly');
       }), catchError((err) => {
         if (err) {
-          this.handleErr(err);
+          OAuthService.handleErr(err);
         }
         this.router.navigate(['/auth/sign-in']);
         return of(false);
@@ -195,7 +199,7 @@ export class OAuthService {
     );
   }
 
-  handleErr(err) {
+  private static handleErr(err) {
     if(err instanceof Error || typeof err === 'object') {
       console.error(err.toString());
     } else {
